@@ -1,0 +1,171 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  background: #f00;
+}
+
+$col:#f00;
+
+@mixin test {
+  a {
+    font-size: 50px;
+    color: blue;
+  }
+}
+
+@include test;
+
+.test1 {
+  @include test;
+  border: 5px solid green;
+}
+
+
+@mixin wa($color:red, $font-size:10px) {
+
+  //默认参数
+  div {
+    color: $color;
+    font-size: $font-size;
+  }
+}
+
+@mixin ha($color:blue, $font-size:66px) {
+  div {
+    color: $color;
+    font-size: $font-size;
+  }
+}
+
+
+.button-green {
+  @include wa(green, 12px);
+}
+
+.button-red {
+  @include ha($color:blue, $font-size:10px);
+}
+
+
+// 数量可变的参数
+//通过在变量名后增加三个点（...）来使mixin模块接收数量可变的参数。需要注意的是这些是三个周期的字符
+//而不是单一的省略号。当你使用@include传递参数的时候，使用逗号将参数分开。
+
+@mixin box-shadows($shadow...) {
+  box-shadow: $shadow;
+}
+
+.container {
+  @include box-shadows(0px 1px 2px #333, 2px 3px 4px #ccc);
+}
+
+$shadows: 10px 11px 12px #333,
+12px 13px 14px #ccc;
+$list:110px 111px 112px #333,
+112px 113px 114px #ccc;
+
+.con {
+  @include box-shadows($shadows...);
+
+}
+
+.but {
+  color: yellow;
+  @extend .con;
+
+  div {
+    border: 1px;
+  }
+
+}
+
+
+//函数@function
+
+// 自定义函数
+// 要实现函数的声明和返回内容我们需要使用function和return两个指令，类似于其他语言中的关键字。
+// @function 函数名(形参) {
+// @return;
+// }
+@function getWidth($w) {
+  @return $w*2;
+}
+
+.main {
+  max-width:#{getWidth(20)}px;
+}
+
+
+@function getWidth($w) {
+  @return $w*2+px;
+}
+
+.main {
+  max-width: getWidth(30);
+  color: hsl(0, 100%, 50%)
+}
+
+@function getHeight($w) {
+  @return length($list: li)+type-of($value:li);
+
+}
+
+$name:foo;
+$attr:border;
+
+.#{$name} {
+  #{$attr}-color: blue;
+}
+
+$name: foo;
+$attr: border;
+
+p.#{$name} {
+  #{$attr}-color: blue;
+}
+
+
+a {
+  color: red;
+
+  &:hover {
+    color: blue;
+  }
+}
+
+
+p {
+  margin: 20+20+px;
+  padding: 20px+30px;
+  width: (100%/6)
+}
+
+//循环语句
+
+@for $i from 1 to 10 {
+  .a5_img#{$i} {
+    background-image: url('/images/img#{$i}.png');
+  }
+}
+
+$j:10;
+
+//if语句
+@mixin bg($b) {
+  @if($b==5) {
+    background-color: #fff;
+  }
+
+  @else if($b==6) {
+    background-color: green;
+  }
+
+  @else {
+    background: blue;
+  }
+}
+
+.m {
+  @include bg(6)
+}

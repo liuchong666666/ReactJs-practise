@@ -1,0 +1,116 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09react如何渲染表单-Select</title>
+
+</head>
+
+<body>
+
+  <div id='app'></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    let appContainer = document.getElementById('app')
+
+    class NameForm extends React.Component{
+      constructor(props) {
+        super(props)
+        this.state={
+          value:'',
+          myColor:'yellow'
+        }
+        this.handleChange=this.handleChange.bind(this)
+        this.handleSubmit=this.handleSubmit.bind(this)
+        this.handleSelectChange=this.handleSelectChange.bind(this)
+      }
+      handleChange(event){
+        this.setState({
+          // value:event.target.value.toUpperCase()
+          value:event.target.value
+        })
+      }
+      handleSelectChange(value){
+          this.setState({
+           myColor:value
+          })
+      }
+      handleSubmit(event){
+        alert('A name was submitted:'+this.state.value+'mycolor'+this.state.myColor)
+        event.preventDefault();
+      }
+      render(){
+        const list = [
+          {title:'红色',value:'red'},
+          {title:'绿色',value:'green'},
+          {title:'蓝色',value:'blue'},
+          {title:'黄色',value:'yellow'},
+        ]
+        const {myColor}=this.state
+        return(
+          <form onSubmit={this.handleSubmit}>
+              <label>Name:
+                  <textarea type="text" value={this.state.value} onChange={this.handleChange}>
+                </textarea>
+              </label>
+              <label>
+                FavColor:
+                {/*这里接收到内层传过来的onChange事件，然后传给handleSelectChange*/}
+                <Select onChange={this.handleSelectChange} list={list} defalutValue={myColor}/>
+              </label>
+              <input type="submit" value="submit" />
+          </form>
+        )
+      }
+    }
+
+
+
+    class Select extends React.Component{
+      constructor(props) {
+        super(props)
+        this.state={
+          value:props.defalutValue
+        }
+        this.handleChange=this.handleChange.bind(this)
+      }
+      handleChange(e){
+        const {onChange} = this.props
+        // alert(e.target.value)
+        this.setState({
+          value:e.target.value
+        })
+        if(onChange&&typeof(onChange)==='function'){
+          onChange(e.target.value)//通知外层onChange
+        }
+      }
+      render(){
+        const {list} = this.props
+        const {value} = this.state
+        return(
+        <select value={value}  onChange={this.handleChange}>
+          {list.map((item,index)=><option value={item.value} key={item.value}>{item.title}</option>)}
+        </select>
+        )
+      }
+    }
+
+    ReactDOM.render(
+      <NameForm/>,
+      appContainer
+    )
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-24 15:04:10
+ * @Description:
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react练习</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    class Liao extends React.Component{
+      render(){
+        return(
+          <div>
+            <h2>{this.props.name}{this.props.age},我有三个学科：{this.props.coll} </h2>
+         </div>
+        )
+      }
+    }
+    ReactDOM.render(
+    <Liao name="liaoke" age={21} coll={["h5","java","js"]} />,
+    document.getElementById("app")
+    )
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:25:25
+ * @Description:
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>什么是jsx</title>
+  <style>
+    .title {
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='app'></div>
+  <h1 style="color:red">用户已登陆</h1>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    let appContainer = document.getElementById('app')
+
+    const appName = 'React';
+
+    const getAppName = ()=>("React"+123);
+
+    function hello(){
+      const isLogin = false
+      if(isLogin){
+        return <h1>用户已登陆 {getAppName()}</h1>
+      }else{
+        return <h1>用户未登录</h1>
+      }
+    }
+
+    let styleObj = {color:'blue'}
+
+    let state = '登陆'
+
+
+  // let ele = (
+  //   <h1 style={styleObj} className="title">
+  //     用户已{state}，{getAppName()}
+  //     <br />
+  //     <button>登出</button>
+  //   </h1>
+  // )
+
+  // let tit ="<script>alert('hello')<script>"  jsx会防止这种注入攻击
+  //   {content}
+  let tit="ABC"
+  let ele = (
+    <h1 className="title">{tit}</h1>
+  )
+  let element = React.createElement(
+    'h1',
+    {className:'title'},
+     tit
+  )
+      // React.createElement() 会预先执行一些检查，以帮助你编写无错代码，但实际上它创建了一个这样的对象：
+      // // 注意：这是简化过的结构
+      // const element = {
+      //   type: 'h1',
+      //   props: {
+      //     className: 'greeting',
+      //     children: 'Hello, world!'
+      //   }
+      // };
+  ReactDOM.render(
+  // <h1>hello {appName}</h1>,
+  // hello(),
+  // <h1 style={{color:'red'}}>用户已登陆 {getAppName()}</h1>,
+  ele,
+  // element,
+  appContainer
+  )
+  </script>
+</body>
+
+</html>

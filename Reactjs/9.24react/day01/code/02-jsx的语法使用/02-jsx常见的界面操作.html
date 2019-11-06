@@ -1,0 +1,93 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-24 15:04:10
+ * @Description:
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react练习</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/html">
+    //a 多重标签嵌套
+
+    ReactDOM.render(
+    <div>
+      <h2>多层标签嵌套</h2>
+      <img src="img/logo.jpg" alt="liao" width="200" />
+      <p>测试</p>
+    </div>
+    ,
+    document.getElementById('app')
+    )
+  </script>
+  <script type="text/html">
+    //b js中的变量，表达式要写在{}内
+    const str = 'liao课'
+    ReactDOM.render(
+    <div>
+      <span>{str}</span>
+      <p>100+20*2/5={100+20*2/5}</p>
+    </div>
+    ,
+    document.getElementById('app')
+    )
+  </script>
+  <script type="text/babel">
+    //c内联样式通过对象方式引入
+    const myStyle={
+    backgroundColor:'purple',
+    color:'yellow',
+    fontSize:30
+    }
+    ReactDOM.render(
+    <div>
+      {/*注释*/}
+      <h2>来点颜色</h2>
+      <div style={{
+      backgroundColor:'blue',
+      color:'white',
+      fontSize:30
+      }}>颜色1：</div>
+      <div style={myStyle}>颜色2：</div>
+    </div>
+    ,
+    document.getElementById('app')
+    )
+  </script>
+  <script type="text/html">
+    //1.数据
+    const dataArr = [
+    {name:'zjl',age:38},
+    {name:'xtf',age:40},
+    {name:'ldh',age:48},
+    {name:'hbb',age:16},
+    ]
+    //2.创建虚拟DOM
+    const vDOM = (
+    <ul>
+      {
+      dataArr.map((data,index)=>
+      <li key={index}>{index+1}---姓名:{data.name}---年龄:{data.age}岁</li>
+      )
+      }
+    </ul>
+    )
+    ReactDOM.render(
+    vDOM,
+    document.getElementById('app')
+    )
+  </script>
+</body>
+
+</html>

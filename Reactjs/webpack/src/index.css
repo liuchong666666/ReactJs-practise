@@ -1,0 +1,118 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  background: #f00;
+}
+
+a {
+  font-size: 50px;
+  color: blue;
+}
+
+.test1 {
+  border: 5px solid green;
+}
+
+.test1 a {
+  font-size: 50px;
+  color: blue;
+}
+
+.button-green div {
+  color: green;
+  font-size: 12px;
+}
+
+.button-red div {
+  color: blue;
+  font-size: 10px;
+}
+
+.container {
+  box-shadow: 0px 1px 2px #333, 2px 3px 4px #ccc;
+}
+
+.con,
+.but {
+  box-shadow: 10px 11px 12px #333, 12px 13px 14px #ccc;
+}
+
+.but {
+  color: yellow;
+}
+
+.but div {
+  border: 1px;
+}
+
+.main {
+  max-width: 40px;
+}
+
+.main {
+  max-width: 60px;
+  color: red;
+}
+
+.foo {
+  border-color: blue;
+}
+
+p.foo {
+  border-color: blue;
+}
+
+a {
+  color: red;
+}
+
+a:hover {
+  color: blue;
+}
+
+p {
+  margin: 40px;
+  padding: 50px;
+  width: 16.66667%;
+}
+
+.a5_img1 {
+  background-image: url("/images/img1.png");
+}
+
+.a5_img2 {
+  background-image: url("/images/img2.png");
+}
+
+.a5_img3 {
+  background-image: url("/images/img3.png");
+}
+
+.a5_img4 {
+  background-image: url("/images/img4.png");
+}
+
+.a5_img5 {
+  background-image: url("/images/img5.png");
+}
+
+.a5_img6 {
+  background-image: url("/images/img6.png");
+}
+
+.a5_img7 {
+  background-image: url("/images/img7.png");
+}
+
+.a5_img8 {
+  background-image: url("/images/img8.png");
+}
+
+.a5_img9 {
+  background-image: url("/images/img9.png");
+}
+
+.m {
+  background-color: green;
+}

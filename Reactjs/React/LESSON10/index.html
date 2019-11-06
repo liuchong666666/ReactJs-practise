@@ -1,0 +1,151 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>10.react状态提升</title>
+
+</head>
+
+<body>
+  <div id='app'></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    /*
+   new Vue({
+    el:'#app',
+    template:`<h1>hi</h1>`
+    })
+    */
+//封装一个类似vue的app组件
+    //解构中的默认值：{el="#app",rootComp=<h1>hello react</h1>}
+    function createReactApp({
+      el="#app",
+      rootComp=<h1>hello react</h1>
+    })
+      {
+        ReactDOM.render(rootComp,document.querySelector(el))
+    }
+
+
+    // class ButtonAdd extends React.Component{
+    //   handleClick=()=>{
+    //     const {count,onChange} = this.props
+    //     if(onChange){
+    //       onChange(count+1)
+    //     }
+    //   }
+    //   render(){
+    //     const {count} = this.props
+    //     return(
+    //       <button onClick={this.handleClick}>ButtonAdd-${count}</button>
+    //     )
+    //   }
+    // }
+
+
+    // class ButtonSub extends React.Component{
+    //   handleClick=()=>{
+    //     const {count,onChange} = this.props
+    //     if(onChange){
+    //       onChange(count-1)
+    //     }
+    //   }
+    //   render(){
+    //     const {count} = this.props
+    //     return(
+    //       <button onClick={this.handleClick}>ButtonSub-${count}</button>
+    //     )
+    //   }
+    // }
+
+    // class Calculator extends React.Component{
+    //   constructor(props) {
+    //     super(props)
+    //     this.state={
+    //       count:50
+    //     }
+    //   }
+
+    //   handleChange=(value)=>{
+    //       this.setState({
+    //         count:value
+    //       })
+    //   }
+
+    //   render(){
+    //     const {count}=this.state
+    //     return(
+    //       <div>
+    //         <h1>{count}</h1>
+    //         <ButtonAdd onChange={this.handleChange} count={count}/>
+    //         <ButtonSub onChange={this.handleChange} count={count}/>
+    //       </div>
+    //     )
+    //   }
+    // }
+
+      class Add  extends React.Component{
+        Fuc=(e)=>{
+           this.props.onChange(e.target.value)
+        }
+        render(){
+          const {count} = this.props
+          return(
+          <input type="text" onChange={this.Fuc} value={count}/>
+          )
+        }
+      }
+      class Sub  extends React.Component{
+        Fuc=(e)=>{
+           this.props.onChange(e.target.value)
+        }
+        render(){
+          const {count} = this.props
+          return(
+          <input type="text" onChange={this.Fuc} value={count}/>
+          )
+        }
+      }
+      class All extends React.Component{
+        constructor(props) {
+          super(props)
+          this.state={
+            count:0
+          }
+        }
+        handleChange=(value)=>{
+          this.setState({
+            count:value
+          })
+        }
+        render(){
+          return(
+            <div>
+                <Add onChange={this.handleChange} count={this.state.count}/>
+                <Sub onChange={this.handleChange} count={this.state.count}/>
+            </div>
+
+          )
+        }
+      }
+
+    createReactApp({
+      // el:'#app',
+      // rootComp: <Calculator />
+      rootComp: <All />
+    })
+  </script>
+</body>
+
+</html>

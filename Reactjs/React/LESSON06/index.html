@@ -1,0 +1,67 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06React如何处理事件</title>
+
+</head>
+
+<body>
+  <button onclick='doClick()'>click</button>
+  <a href="https://www.baidu.com/" onclick="console.log('the link was clicked');return false">this is a link</a>
+  <div id='app'></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+
+    function doClick(params) {
+    alert('doClick')
+  }
+    let appContainer = document.getElementById('app')
+
+    class Button extends React.Component{
+      doClick(){
+        alert('React Click')
+      }
+      render(){
+        return(
+          <button onClick={this.doClick}>
+            click(React)
+          </button>
+        )
+      }
+    }
+    class MyLink extends React.Component{
+      doClick(e){
+        e.preventDefault()//这样可以阻止默认行为
+        alert('React Click link')
+        // return false;//这样没法阻止默认行为
+      }
+      render(){
+        return(
+          <a href="https://www.baidu.com/" onClick={this.doClick}>
+            click(React)
+          </a>
+        )
+      }
+    }
+
+    ReactDOM.render(
+      <MyLink />,
+      appContainer
+    )
+  </script>
+</body>
+
+</html>

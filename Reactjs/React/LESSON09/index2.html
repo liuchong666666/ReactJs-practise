@@ -1,0 +1,65 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09react如何渲染表单-TextArea</title>
+
+</head>
+
+<body>
+
+
+  <div id='app'></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    let appContainer = document.getElementById('app')
+
+    class NameForm extends React.Component{
+      constructor(props) {
+        super(props)
+        this.state={
+          value:''
+        }
+        this.handleChange=this.handleChange.bind(this)
+        this.handleSubmit=this.handleSubmit.bind(this)
+      }
+      handleChange(event){
+        this.setState({
+          value:event.target.value.toUpperCase()
+        })
+      }
+      handleSubmit(event){
+        alert('A name was submitted:'+this.state.value)
+        event.preventDefault();
+      }
+      render(){
+        return(
+          <form onSubmit={this.handleSubmit}>
+              <label>Name:
+                <textArea type="text" value={this.state.value} onChange={this.handleChange} />
+              </label>
+              <input type="submit" value="submit" />
+          </form>
+        )
+      }
+    }
+
+    ReactDOM.render(
+    <NameForm />,
+      appContainer
+    )
+  </script>
+</body>
+
+</html>

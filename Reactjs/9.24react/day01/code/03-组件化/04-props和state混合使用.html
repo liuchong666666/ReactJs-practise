@@ -1,0 +1,104 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-24 16:24:53
+ * @Description:
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react练习</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script src="../js/prop-types.js"></script>
+  <script type="text/babel">
+    //1.组件类
+      class Dog extends React.Component{
+        constructor(props){
+          super(props)
+
+          //狗：姓名， 性别， 年龄（要变）， 狗友（要变）
+              //单组件中props和state的区别：
+              //凡是界面当中需要改变的状态属性 写在state  ，
+              //不改变就用props //当然也可以放在state
+
+
+          //2.初始化state
+          this.state={
+              age:1,//年龄
+              dogFriends:[] //狗友
+          }
+
+        }
+
+        //3.设置props属性的默认值
+        static defaultProps = {
+            // name:'旺财',
+            // gender:'公'
+        }
+
+        //4.设置props属性的类型  //用prop-types.js
+        static propTypes ={
+          // name:PropTypes.number,//react.development.js:2297 Warning: Failed prop type: Invalid prop `name` of type `string` supplied to `Dog`, expected `number`.in Dog
+
+          name:PropTypes.string.isRequired,//PropTypes是prop-types.js中的一个对象
+                                           //PropTypes.string.isRequired 必须要传的
+                                            //name名称随便取
+          gender:PropTypes.string
+
+        }
+
+        render(){
+          const {name,gender} = this.props
+          const {age,dogFriends} = this.state
+          return(
+            <div>
+              <p>狗名：{name},性别:{gender}</p>
+              <p>今年{age}岁</p>
+              <p>拥有很多狗友</p>
+              <ul>
+                {dogFriends.map((friend,index)=>(
+                  <li key={index}>{friend}</li>
+                ))}
+              </ul>
+              <button onClick={()=>this.addYear()}>增一岁</button>
+            </div>
+          )
+        }
+
+        addYear(){
+          //先把狗友取出来赋值给tmpArr变量然后进行操作然后再设置setState
+          //1.增加狗友
+          let tempArr = this.state.dogFriends
+          tempArr.push('狗友'+Math.floor(Math.random()*100))
+
+               // this.props.name="haha";//Uncaught TypeError: Cannot assign to read only property 'name' of object '#<Object>'//props不能改变，只读的
+               // this.setProps({
+               //   name:'haha'
+               // })//Inline Babel script:51 Uncaught TypeError: this.setProps is not a function//没有这个方法
+
+          //2.更新状态
+          this.setState({
+              age:this.state.age + 1,
+              dogFriends:tempArr//狗友
+          })
+        }
+
+
+      }
+      ReactDOM.render(
+        <Dog name="小黄" gender="母"/>,
+        document.getElementById('app')
+      )
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08react中如何渲染列表</title>
+
+</head>
+
+<body>
+  <div id='app'></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    let appContainer = document.getElementById('app')
+
+    // const courses =[
+    // 'Hello World',
+    // 'JSX 简介',
+    // '元素渲染',
+    // '组件 & Props',
+    // 'State & 生命周期',
+    // '事件处理',
+    // '条件渲染',
+    // '列表 & Key',
+    // '表单',
+    // '状态提升',
+    // '组合 vs 继承',
+    // 'React 哲学',
+    // ]
+
+    // const indexCourseList = courses.map((course,index,array)=>(index+1)+'-'+course)
+    // console.log(indexCourseList)
+
+    // const courseListUI = indexCourseList.map((course,index)=> <li key={`couese-list-${index}`}>{course}</li> )
+    // ReactDOM.render(
+    //   <ul>{courseListUI}</ul>,
+    //   appContainer
+    // )
+
+
+    //组件封装起来
+    function CourseList(props) {
+        const { courses } = props
+        if(courses && courses.length>0){
+            const indexCourseList = courses.map((course,index,array)=>(index+1)+'-'+course)
+            const courseListUI = indexCourseList.map((course,index)=> <li key={`couese-list-${index}`}>{course}</li> )
+            return (
+                <ul>
+                  {courseListUI}
+                </ul>
+              )
+        }else{
+            // return null
+            return ( <div>没有任何课程</div>   )
+        }
+    }
+    const courses =[
+        'Hello World',
+        'JSX 简介',
+        '元素渲染',
+        '组件 & Props',
+        'State & 生命周期',
+        '事件处理',
+        '条件渲染',
+        '列表 & Key',
+        '表单',
+        '状态提升',
+        '组合 vs 继承',
+        'React 哲学',
+    ]
+
+    ReactDOM.render(
+    <CourseList courses={courses}/>,
+      appContainer
+    )
+  </script>
+</body>
+
+</html>

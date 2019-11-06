@@ -1,0 +1,111 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05react中的state生命周期</title>
+
+</head>
+
+<body>
+  <div id='app'></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    function Clock2(props){//纯函数，进来什么返回什么
+       const element = (
+        <div>
+          <h1>hello,world!</h1>
+          <h2>现在是：{props.date.toLocaleTimeString()}</h2>
+        </div>
+      )
+      return element;
+    }
+    /*
+    vue中：
+      new Vue({
+        el:'#app',
+        data(){
+          return{
+            date:new Date()
+          }
+        }
+      })
+    */
+    class Clock extends React.Component{
+      constructor(props) {
+        super(props)
+        this.state = {
+          date:new Date(),
+          count1:0,
+          count2:10,
+          count3:100,
+        }
+        console.log('clock')
+        setInterval(() => {
+          this.tick()
+        }, 1000)
+
+      }
+
+      tick(){
+        console.log('call->tick')
+        this.setState((prevState,props)=>{
+          /*
+            可以让 setState() 接收一个函数而不是一个对象。
+            这个函数用上一个 state 作为第一个参数，
+            将此次更新被应用时的 props 做为第二个参数：
+          */
+          //出于性能考虑，React 可能会把多个 setState() 调用合并成一个调用。
+          return{
+            date:new Date(),
+            count1:prevState.count1+1,
+            count2:prevState.count2+1,
+            count3:prevState.count3+1,
+        }
+        })
+
+      }
+      componentWillUnmount() {//卸载时
+        console.log('componentWillUnmount')
+        clearInterval(this.timerID)
+      }
+      componentDidMount() {//挂载组件完成后
+        console.log('componentDidMount')
+        this.timerID = setInterval(() => {
+          this.tick()
+        }, 1000);
+      }
+
+
+      render(){
+        console.log('render->',this.state)
+        const {date} = this.state;
+        return(
+            <div>
+              <h1>hello,world!</h1>
+              <h2>现在是：{date.toLocaleTimeString()}</h2>
+            </div>
+        )
+      }
+    }
+
+    ReactDOM.render(
+        <Clock date={new Date()}/>,
+        // Clock({date:new Date()}),//传参数
+        document.getElementById('app')
+      )
+
+  </script>
+</body>
+
+</html>

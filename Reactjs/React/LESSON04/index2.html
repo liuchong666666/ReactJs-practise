@@ -1,0 +1,110 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>04.React中的组件和props是啥</title>
+  <style>
+    .UserInfo {}
+
+    .Avatar {
+      width: 80px;
+      border-radius: 20px;
+    }
+
+    .UserInfo-name {
+      color: white
+    }
+
+    .Comment {
+      background-color: darkorange;
+      padding: 10px 20px;
+      border-radius: 5px;
+
+    }
+
+    .Comment-text {
+      color: white
+    }
+
+    .Comment-date {
+      color: white
+    }
+  </style>
+</head>
+
+<body>
+  <div id='app'></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    function formatDate(date){
+      return date;
+    }
+    function Avatar(props){
+      return  <img className="Avatar"
+          src={props.user.avatarUrl}
+          alt={props.user.name}
+        />
+    }
+    function UserInfo(props){
+      return(
+        <div className="UserInfo">
+          <Avatar user={props.user}/>
+          <div className="UserInfo-name">
+            {props.user.name}
+          </div>
+      </div>
+      )
+    }
+    function CommentMsg(props){
+      return(
+        <div>
+          <div className="Comment-text">
+            {props.msg.text}
+          </div>
+          <div className="Comment-date">
+            {formatDate(props.msg.date)}
+          </div>
+        </div>
+      )
+    }
+
+
+    function Comment(props) {
+      return (
+        <div className="Comment">
+          <UserInfo user={props.author}/>
+          {/* <CommentMsg msg={{ text:'hello world',date:'2019-9-11' }}/>*/}
+          <CommentMsg msg={props.msg}/>
+        </div>
+      );
+    }
+
+    const author={
+      name:"lc",
+      avatarUrl:"https://www.baidu.com/img/baidu_jgylogo3.gif"
+    }
+
+    const msg = { text:'hello world',date:'2019-9-11' }
+
+    ReactDOM.render(
+      <div>
+        <Comment author={author} msg={msg} />
+      </div>,
+      app
+    )
+  </script>
+</body>
+
+</html>

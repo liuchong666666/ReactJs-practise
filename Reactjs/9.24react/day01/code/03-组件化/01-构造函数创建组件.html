@@ -1,0 +1,77 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-24 15:04:10
+ * @Description:
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react练习</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/html">
+    function Liao(props){
+    return(
+    <div>
+      <h2>liaoke </h2>
+      <img src="img/logo.jpg" alt="" width="200" />
+    </div>
+    )
+    }
+    ReactDOM.render(
+    <Liao />,
+    document.getElementById("app")
+    )
+  </script>
+  <script type="text/html">
+    function Liao(props){
+    return(
+    <div>
+      <h2>{props.name}{props.age},我有三个学科：{props.coll} </h2>
+      <img src="img/logo.jpg" alt="" width="200" />
+    </div>
+    )
+    }
+    ReactDOM.render(
+    <Liao name="liaoke" age={21} coll={["h5","java","js"]} />,
+    document.getElementById("app")
+    )
+  </script>
+  <script type="text/babel">
+    function Name(props){
+      return <p>我叫：{props.name}</p>
+    }
+    function Gender(props){
+      return <p>我叫：{props.gender}</p>
+
+    }
+    function Colleges(props){
+      return <p>我有三个学科：{props.colleges}</p>
+
+    }
+    function Liao(props){
+      return(
+        <div>
+          <Name name="it"/>
+          <Gender gender="she"/>
+          <Colleges colleges={["h5","java","js"]}/>
+        </div>
+      )
+    }
+    ReactDOM.render(
+    <Liao/>,
+    document.getElementById("app")
+    )
+  </script>
+</body>
+
+</html>

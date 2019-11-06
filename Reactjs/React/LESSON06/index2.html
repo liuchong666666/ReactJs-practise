@@ -1,0 +1,70 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06React如何处理事件</title>
+
+</head>
+
+<body>
+  <button onclick='doClick()'>click</button>
+  <a href="https://www.baidu.com/" onclick="console.log('the link was clicked');return false">this is a link</a>
+  <div id='app'></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    let appContainer = document.getElementById('app')
+    class Toggle extends React.Component{
+      constructor(props) {
+        super(props)
+        this.state={
+          isToggleOn:true
+        }
+        console.log('toggle constructor->this',this)
+        //改变方法this：方法一： this.handleClick = this.handleClick.bind(this)
+        //下面就用<button onClick={this.handleClick}>
+      }
+      // handleClick=()=>{//方法三，方法用箭头函数，下面就用<button onClick={this.handleClick}>
+      handleClick(title,e){//后面还带了个e//下面用了bind方法，这里就不要用箭头函数了
+        alert(title)
+        console.log('toggle handleClick->this',this)
+        this.setState(prevState=>({
+          isToggleOn:!prevState.isToggleOn
+        }))
+      }
+      render(){
+        return(
+          //方法二： <button onClick={this.handleClick.bind(this)}>
+          //方法二： <button onClick={this.handleClick.bind(this,'abc')}>//可以传参，然后函数那边接受参数
+          // <button onClick={this.handleClick}>
+          // <button onClick={this.handleClick.bind(this,'abc')}>
+          //--------------------------------
+          ////方法四：此语法问题在于每次渲染 LoggingButton 时都会创建不同的回调函数。
+          //我们通常建议在构造器中绑定或使用 class fields 语法（就上面的handleClick函数中处理）来避免这类性能问题
+          <button onClick={()=>this.handleClick('abc')}>
+            {this.state.isToggleOn ? 'ON':'off'}
+          </button>
+        )
+      }
+
+  }
+
+     ReactDOM.render(
+       <Toggle />,
+       appContainer
+     )
+   </script>
+</body>
+
+</html>

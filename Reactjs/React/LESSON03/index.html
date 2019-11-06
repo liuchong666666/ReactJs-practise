@@ -1,0 +1,50 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <div id='app'></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    //这个只会更新变化的部分
+    function update(){
+    const localTime = new Date().toLocaleTimeString()
+    const element = (<div>
+        <h1>Hello, world</h1>
+        <h2>It is {localTime}</h2>
+    </div>)
+    ReactDOM.render(element,document.getElementById('app'))
+  }
+
+  //这种每次会更新所有部分
+  // function update(){
+  //   const localTime = new Date().toLocaleTimeString()
+  //      const element = `<div>
+  //        <h1>Hello, world</h1>
+  //        <h2>It is ${localTime}</h2>
+  //   </div>`
+  //    const rootElement = document.getElementById('app')
+  //    rootElement.innerHTML=element;
+  // }
+  setInterval(() => {
+    update()
+  }, 1000);
+  </script>
+</body>
+
+</html>

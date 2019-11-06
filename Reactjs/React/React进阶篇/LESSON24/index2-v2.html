@@ -1,0 +1,115 @@
+<!--
+ * @Author: lc
+ * @Date: 2019-09-11 10:02:32
+ * @Description:
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>25.context实现跨层级传递数据下-v2</title>
+  <style>
+    .btn {
+      outline: none;
+      padding: 10px 20px;
+      background-color: lightblue;
+      color: black;
+      border-radius: 5px;
+    }
+
+    .btn-dark {
+      background-color: darkblue;
+      color: white
+    }
+  </style>
+</head>
+
+<body>
+  <div id='app'></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    let appContainer = document.getElementById('app')
+
+    const ThemeContext = React.createContext('light')
+    const UserContext = React.createContext('user')
+
+    function Button(props){
+      return <button className={["btn","btn-"+props.theme].join(' ')}>Mybutton</button>
+    }
+
+    function ThemedButton(props) {
+      return <Button theme={props.theme} />
+    }
+
+    function ProfilePage(props){
+      return(
+        <div>
+          User:{props.user}
+          <hr/>
+          Theme:{props.theme}
+        </div>
+      )
+    }
+
+
+
+    function withTheme(Component){
+            return function ThemedComponent(props){
+              return(
+                <ThemeContext.Consumer>
+                  {
+                    theme=>(
+                      <Component {...props} theme={theme}/>
+                    )
+                  }
+                </ThemeContext.Consumer>
+              )
+      }
+    }
+
+    function withLogin(Component){
+      return function UserComponent(props) {
+          return(
+            <UserContext.Consumer>
+                    {
+                      user=>(
+                        <Component {...props} user={user}/>
+                        )
+                    }
+            </UserContext.Consumer>
+          )
+      }
+    }
+
+    function Toolbar(props){
+      const MixinComponent = withTheme(withLogin(ProfilePage))
+        return <MixinComponent />
+        // return MixinComponent()
+      }
+
+    class App extends React.Component{
+        render(){
+          const {loginUser,theme} = this.props
+          return(
+          <ThemeContext.Provider value={theme}>
+              <UserContext.Provider value={loginUser}>
+                  <Toolbar theme="light"/>
+              </UserContext.Provider>
+          </ThemeContext.Provider>
+          )
+        }
+      }
+    ReactDOM.render(
+        <App loginUser="lc" theme="dark"/>,
+        appContainer
+      )
+  </script>
+</body>
+
+</html>
